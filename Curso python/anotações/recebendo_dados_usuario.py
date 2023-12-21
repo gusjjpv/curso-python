@@ -46,6 +46,9 @@ Cast é a 'conversão' de um tipo de dado para outro.
 O cast pode ser feito na propria declaração da variavel
 Exemplo:
 int idade = input()
+
+outra forma de conveter:
+    idade = int(input('informe a sua idade: '))
 """
 # pequeno calculo para saber o ano que a pessoa nasceu// detro das chaves podemos faze calculos(processamentos)
 print(f'A {nome} nasceu em{2023 - int(idade)}')

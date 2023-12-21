@@ -1,0 +1,6 @@
+"""
+Dicionarios 
+
+OBS: em algumas
+
+"""
