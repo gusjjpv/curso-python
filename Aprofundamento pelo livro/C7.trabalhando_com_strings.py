@@ -44,4 +44,27 @@ print("verificação com in:")
 print("Andrei" in s)
 print("A" in s)
 
-# 
+# operador in pode ser usado em listas para facilitar a pesquisa de elementos
+
+#7.2 contagem
+
+# utilizando o metodo count() podemos contar as ocorrencias de uma letra ou palavra em uma string
+
+s = "Todos os caminhos levam a Roma"
+
+print(s.count("T"))
+print(s.count("o"))
+
+#7.3 Pesquisa de string
+
+#para pesquisar uma string esta dentro de outra e ainda obter a posição do primeiro caractere, utilizamos o metodo find()
+
+h = "Um dia de sol"
+
+print("esquerda para a direita: ",h.find("d"))
+
+# se a string for encontrada, retornara um valor maior ou igual a zero, ou -1 caso contrario
+# o valor retornado é o indice do primeiro caractere da string
+# esse metodo faz a pesquisa da esquerda para direita, com rfind() a pesquisa acontece da direita para a esquerda
+print("direita para a esquerda: ",h.rfind("d"))
+
