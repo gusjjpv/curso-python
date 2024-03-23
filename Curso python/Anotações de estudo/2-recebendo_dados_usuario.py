@@ -52,3 +52,17 @@ outra forma de conveter:
 """
 # pequeno calculo para saber o ano que a pessoa nasceu// detro das chaves podemos faze calculos(processamentos)
 print(f'A {nome} nasceu em{2023 - int(idade)}')
+
+# formatar a saida de dados
+
+PI = 3.141592
+
+print(f'O valor de PI é {PI:.2f}')  # :.2f -> duas casas decimais
+print(f'O valor de PI é {PI:.4f}')  # :.4f -> quatro casas decimais
+# :10.2f -> dez caracteres com duas casas decimais
+print(f'O valor de PI é {PI:10.2f}')
+
+# print tem argumentos que podem ser passados para ele
+# sep -> separador / vai separar os argumentos
+# end -> final / vai finalizar a linha com o que for passado
+# print(nome, idade, sep='-', end='###') == "nome-idade###"

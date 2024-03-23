@@ -48,6 +48,27 @@ print(nome.upper())
 nome = 'JOÃO GUSTAVO'
 print(nome.lower())
 
+# Colocar a primeira letra em maiusculo
+
+nome = 'joão gustavo'
+print(nome.title())
+
+# eliminando espaços em branco
+
+curso = '   Curso de Python   '
+print(curso.strip())
+print(curso.lstrip())  # elimina os espaços a esquerda
+print(curso.rstrip())  # elimina os espaços a direita
+
+# junçoes e centralização
+
+print(",".join(curso))
+# junta cada letra da string com uma virgula
+
+# centraliza a palavra 'Curso de Python' em 20 caracteres, preenchendo com '*'
+print(curso.center(20, '*'))
+
+
 # Colocar em um lista/array
 
 sp = 'São Paulo o maior do Brasil'
@@ -74,9 +95,9 @@ print(sp.split()[1])
 nome = 'sao paulo'
 
 print(nome.upper()[::-1])
-print('1', sp[2::-1])
+print('tes: 1', sp[2::-1])
 
 # trocar letras
-               #onde tiver 's' vai ser substituido por 'j'     
+# onde tiver 's' vai ser substituido por 'j'
 print(nome.replace('s', 'j'))
 # em sao paulo temos dois 'a', se substituimos o 'a' por outra letra, vai ser trocada todas as letras 'a'
