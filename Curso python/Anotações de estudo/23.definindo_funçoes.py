@@ -42,3 +42,16 @@ diz_oi()
 cumprimentar = diz_oi
 
 cumprimentar()
+
+# args e kwargs
+# args -> argumentos -> são tuplas e permitem que passemos um numero arbitrario de argumentos para a função. definida *args
+# kwargs -> keyword arguments -> são dicionarios e permitem que passemos um numero arbitrario de argumentos nomeados para a função. defiunida **kwargs
+
+def cumprimentar_pessoa(*args):
+    print(args)
+
+def salvar_carro(marca, modelo, ano, placa):
+    print(f'Carro inseriodo com sucesso {marca} {modelo} {ano} {placa}')
+    
+salvar_carro(**{'marca': 'Ford', 'modelo': 'Fiesta', 'ano': 2019, 'placa': 'ABC1234'})
+# carro inserido com sucesso Ford Fiesta 2019 ABC1234

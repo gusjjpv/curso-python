@@ -33,6 +33,21 @@ if let in lista6:
 else:
     print('noa encontrei a letra')
 
+# interar sobre listas
+
+carros = ['gol', 'palio', 'uno', 'celta']
+for carro in carros:
+    print(carro)
+# mostrando o indice da lista
+
+for i, carro in enumerate(carros):
+    print(f'{i}:{carro}')
+
+# compreheension de listas
+numeros = [1,2,3,4,5]
+
+pares = [numero for numero in numeros if numero % 2 == 0]
+
 # Podemos facilmente ordernar uma lista
 lista1.sort()
 #print(lista1)
@@ -350,4 +365,22 @@ print(lista)
 print(nova)
 
 # veja que ultilizamos a copia via atribuição e copiamos os dados da lista para a nova lista, mas apos realizar modificação em uma das listas, essas modificações se reflete em ambas as listas, Isso em Python chamamos de Shallow Copy
+
+# lipando a lista
+
+lista.clear()
+print(lista)
+
+# Matriz
+
+matriz = [
+    [1, "a", 3],
+    [4, 5, "b"],
+    ["c", 8, 9]
+]
+
+matriz[0] # [1, "a", 3]
+matriz[0][1] # "a"
+matriz[2][1] # 8
+matriz[-1][-2] # c / esta pegando o ultimo elemento da ultima lista
 """

@@ -5,13 +5,13 @@ OBS: em algumas linguagens de programação são conhecidos por mapas.
 
 Dicionarios são coleções do tipo chave/valor.
 
-Dicionairios são representados por chaves {}.
+Dicionairios são representados por {}.
 
 print(type({}))
 
 OBS: sobre dicionarios
     - Chave e valor são separados por dois pontos ' chave:valor ';
-    - tanto chave quanto valor podem ser qualquer tipo de dado;
+    - tanto chave quanto valor podem ser qualquer tipo de dado, mas a chave tem que ser imutavel;
     - podemos misturar tipos de dados
 
 # Criação de dicionarios
@@ -30,6 +30,9 @@ paises = dict(br='Brasil', eua='Estados Unidos da America', py='Paraguai')
 print(paises)
 print(type(paises))
 
+# forma de adicionar a um dicionario 
+
+paises['jap'] = 'japao'
 
 # Acessando elementos
 
@@ -141,7 +144,7 @@ del receita['fev']
 
 print(receita)
 
-#se a chave não existir sera ferado um KeyError
+#se a chave não existir sera gerado um KeyError
 # OBS: Neste caso o vlaor removido não é retornado
 
 # 1 - poderiamos utilizar uma lista para isso? Sim
@@ -221,8 +224,6 @@ novo['d'] = 4
 print(d)
 print(novo)
 
-"""
-
 # Forma não usual de criação de dicionarios
 
 outro = {}.fromkeys('a', 'b')
@@ -235,11 +236,62 @@ print(usuario)
 print(type(usuario))
 
 # o metodo fromkeys recebe dois parametros um interavel e um valor
-# ele vai ferar para cada valor do iteravel uma chave e ira atribuir a esta chave o valor informado 
+# ele vai ferar para cada valor do iteravel uma chave e ira atribuir a esta chave o valor informado
 
 veja = {}.fromkeys('teste', 'valor')
 print(veja)
 
-veja = {}.fromkeys(range(1,11), 'novo')
+veja = {}.fromkeys(range(1, 11), 'novo')
 
 print(veja)
+
+"""
+
+contatos = {
+    "joaogustavo@gmail.com":{'nome':'Joao Gustavo', 'telefone':'999999999'},
+    "maria@gmail.com":{'nome':'Maria', 'telefone':'888888888'},
+}
+
+print(contatos['joaogustavo@gmail.com']['telefone'])
+
+for chave, valor in contatos.items():
+    print(chave, valor)
+    
+# contatos['chave'] # keyerror
+
+
+# o get não gera erro, caso a chave não exista, vai retornar None ou o valor default informado
+contatos.get('chave') # None
+contatos.get('chave', 'Não encontrado') # Não encontrado
+contatos.get('joaogustavo@gmail.com', {}) # {'nome':'Joao Gustavo', 'telefone':'999999999'}
+
+# items() retorna uma lista de tuplas com chave e valor
+print(contatos.items()) # dict_items([('joaogustavo@gmail.com', {'nome': 'Joao Gustavo', 'telefone': '999999999'})
+
+#keys() retorna uma lista de chaves
+# ultil para iterar sobre dicionarios e pegar as chaves do diciionario
+novo_dicionario = {"a": 1, "b": 2, "c": 3}
+print(novo_dicionario.keys()) # dict_keys(['a', 'b', 'c'])
+
+# pop() remove um item de um dicionario e retorna o valor
+
+resultado = contatos.pop('mariana@gmail.com', "nao encontrado")
+print(resultado) # nao encontrado
+
+# popitem() remove um item aleatorio de um dicionario
+
+#setdefault() -> forma de adicionar um elemento ao dicionario, caso a chave não exista
+
+contatos.setdefault('idade', 20)
+
+# values() retorna uma lista de valores
+print(contatos.values()) # dict_values([{'nome': 'Joao Gustavo', 'telefone': '999999999'}, {'nome': 'Maria', 'telefone': '888888888'}])
+
+# operador in -> verifica se a chave existe no dicionario
+
+resultado = "joaogustavo@gmail.com" in contatos
+print(resultado) # True
+
+resultado = "mariazinha@gmail.com" in contatos
+print(resultado) # False
+
