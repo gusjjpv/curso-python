@@ -3,8 +3,16 @@
         Criar um sistema bancario com as operações: sacar, depositar e visualizar extrato.
 """
 
-
 def deposito(quantia, saldo):
+    """ função que faz o deposito na conta 
+
+    Args:
+        quantia (float): quantidade de dinheiro que vai ser depositado 
+        saldo (_type_): o saldo atual do cliente
+
+    Returns:
+        float: retorna o saldo atualizado do cliente
+    """
     saldo += quantia
     print(f'Deposito de {quantia} realizado com sucesso')
     print(f'Seu saldo é {saldo}')
@@ -12,20 +20,27 @@ def deposito(quantia, saldo):
 
 
 def saque(quantia, saldo):
+    """ função que realiza o saque da conta 
+
+    Args:
+        quantia (float): quantidade de dinheiro que vai ser depositado 
+        saldo (_type_): o saldo atual do cliente
+
+    Returns:
+        float: retorna o saldo atualizado do cliente
+    """
     saldo -= quantia
     print(f'Saque de {quantia} realizado com sucesso')
-    # extrato.append(quantia)
     return saldo
-
 
 saldo = 0
 extrato = []
 limite_saque_diario = 0
 
 while (True):
-    opcao = int(
-        input('1 - Saldo\n2 - Deposito\n3 - Saque\n4 - Extrato\n5 - Sair\n'))
-
+    
+    opcao = int(input('1 - Saldo\n2 - Deposito\n3 - Saque\n4 - Extrato\n5 - Sair\n'))
+    
     if opcao == 1:
         print(f'Seu saldo é {saldo}')
     elif opcao == 2:
@@ -40,21 +55,25 @@ while (True):
     elif opcao == 3:
         if limite_saque_diario < 3:
             quantia = float(input('Digite a quantia que deseja sacar: '))
-            while quantia <= 0 and quantia > 500:
+            while quantia <= 0 or quantia > 500:
                 print('Valor inválido')
                 quantia = float(input('Digite a quantia que deseja sacar: '))
             if quantia > saldo:
                 print('Saldo insuficiente')
-            else:
-                saldo = saque(quantia, saldo)
-                extrato.append(f'-R${quantia:.2f}')
+                break
+            saldo = saque(quantia, saldo)
+            extrato.append(f'-R${quantia:.2f}')
             limite_saque_diario += 1
         else:
             print('Limite de saque diário atingido')
     elif opcao == 4:
         print(f'extrato:\n{extrato}')
+        with open('extrato.txt', 'w') as arquivo:
+            arquivo.write(str(extrato))
     elif opcao == 5:
         print('Obrigado por usar nosso sistema')
+        with open('saldo.txt', 'a') as arqSaldo:
+            arqSaldo.write(str(saldo))
         break
     else:
         print('Opção inválida')
