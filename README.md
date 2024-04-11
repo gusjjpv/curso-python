@@ -1,7 +1,8 @@
-<img align="right" width="110" height="170" src="python/python-svgrepo-com.svg">
+# Estudando python
+<img width="100" height="100" src="python/python-svgrepo-com.svg">
 
-# Curso de Python
-Olá! Este é o meu repositório para o curso de Python. Estou atualmente estudando Python e utilizando este repositório para armazenar e compartilhar meu progresso e aprendizado.
+
+Olá! Este é o meu repositório para os meus estudos da linguagem Python. Estou atualmente estudando Python e utilizando este repositório para armazenar e compartilhar meu progresso e aprendizado.
 
 Python é uma linguagem de programação poderosa e flexível, conhecida por sua sintaxe clara e legível. Estou animado para explorar mais sobre suas funcionalidades e aplicações.
 
