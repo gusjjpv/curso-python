@@ -3,77 +3,179 @@
         Criar um sistema bancario com as operações: sacar, depositar e visualizar extrato.
 """
 
-def deposito(quantia, saldo):
-    """ função que faz o deposito na conta 
 
-    Args:
-        quantia (float): quantidade de dinheiro que vai ser depositado 
-        saldo (_type_): o saldo atual do cliente
+def preencher_dados_usuario():
+    nome = input('Digite o nome do usuário: ')
+    data_nasc = input('Digite a data de nascimento do usuário(dd/mm/aa): ')
+    cpf = int(input('Digite o cpf do usuário(apenas numeros): '))
 
-    Returns:
-        float: retorna o saldo atualizado do cliente
-    """
-    saldo += quantia
-    print(f'Deposito de {quantia} realizado com sucesso')
-    print(f'Seu saldo é {saldo}')
-    return saldo
+    endereco = {
+        "logradouro": input('Digite o logradouro: '),
+        "numero": int(input('Digite o número: ')),
+        "bairro": input('Digite o bairro: '),
+        "cidade": input('Digite a cidade: '),
+        "estado": input('Digite o estado: '),
+    }
+
+    return nome, data_nasc, cpf, endereco
 
 
-def saque(quantia, saldo):
-    """ função que realiza o saque da conta 
+def verificar_cpf_cad(lista_cpfs, cpf):
+    if cpf in lista_cpfs:
+        return True
+    return False
 
-    Args:
-        quantia (float): quantidade de dinheiro que vai ser depositado 
-        saldo (_type_): o saldo atual do cliente
 
-    Returns:
-        float: retorna o saldo atualizado do cliente
-    """
-    saldo -= quantia
-    print(f'Saque de {quantia} realizado com sucesso')
-    return saldo
+def criar_usuario(nome, data_nasc, cpf, endereco):
+    usuario = {
+        'nome': nome,
+        'data_nasc': data_nasc,
+        'cpf': cpf,
+        'endereco': endereco,
+    }
+
+    return usuario
+
+
+def criar_conta(cpf, lst_cpf, lista_contas):
+    if cpf not in lst_cpf:
+        print('CPF não cadastrado')
+        return
+
+    conta = {
+        "agencia": "0001",
+        "numero": len(lista_contas) + 1,
+        "cpf": cpf,
+        "saldo": 0,
+        "extrato": []
+    }
+
+    return conta
+
+
+def verificar_conta(cpf, lista_contas):
+    for conta in lista_contas:
+        if conta['cpf'] == cpf:
+            return True
+    return False
+
+
+def deposito(quantia, conta):
+    conta['saldo'] += quantia
+    conta['extrato'].append(f'Depósito de R${quantia:.2f}')
+    return conta
+
+def saque(quantia, conta):
+    if conta['saldo'] >= quantia:
+        conta['saldo'] -= quantia
+        conta['extrato'].append(f'Saque de R${quantia:.2f}')
+        return conta
+    else:
+        print('Saldo insuficiente')
+        return None
+
+
+def verificar_extrato(conta):
+    print('Extrato:')
+    for transacao in conta['extrato']:
+        print(transacao)
 
 saldo = 0
+lista_usuarios = []
+lista_cpfs = []
+lista_contas = []
 extrato = []
 limite_saque_diario = 0
 
 while (True):
-    
-    opcao = int(input('1 - Saldo\n2 - Deposito\n3 - Saque\n4 - Extrato\n5 - Sair\n'))
-    
+
+    opcao = int(input(
+        '1 - Cadastrar Usuario\n2 - Criar Conta Corrente\n3 - Consultar Saldo\n4 - Deposito\n5 - Saque\n6 - Extrato\n7 - Sair\n>'))
     if opcao == 1:
-        print(f'Seu saldo é {saldo}')
+        nome, data, cpf, endereco = preencher_dados_usuario()
+        while verificar_cpf_cad(lista_cpfs, cpf) == True:
+            print('CPF já cadastrado')
+            cpf = int(input('Digite o cpf do usuário(apenas numeros): '))
+        lista_cpfs.append(cpf)
+        usuario = criar_usuario(nome, data, cpf, endereco)
+        lista_usuarios.append(usuario)
     elif opcao == 2:
-        quantia = float(input('Digite a quantia que deseja depositar: '))
-        while quantia <= 0:
-            print('Valor inválido')
-            quantia = float(input('Digite a quantia que deseja depositar: '))
 
-        saldo = deposito(quantia, saldo)
-        extrato.append(f'+R${quantia:.2f}')
+        cpf = int(input('Digite o cpf do usuário: '))
 
+        if verificar_conta(cpf, lista_contas):
+            print('Conta já cadastrada')
+            continue
+        else:
+            conta = criar_conta(cpf, lista_cpfs, lista_contas)
+            lista_contas.append(conta)
+            print('Conta criada com sucesso')
     elif opcao == 3:
-        if limite_saque_diario < 3:
-            quantia = float(input('Digite a quantia que deseja sacar: '))
-            while quantia <= 0 or quantia > 500:
-                print('Valor inválido')
-                quantia = float(input('Digite a quantia que deseja sacar: '))
-            if quantia > saldo:
-                print('Saldo insuficiente')
+
+        cpf = int(input('Digite o cpf do usuário: '))
+        conta = None
+        for c in lista_contas:
+            if c['cpf'] == cpf:
+                conta = c
                 break
-            saldo = saque(quantia, saldo)
-            extrato.append(f'-R${quantia:.2f}')
-            limite_saque_diario += 1
+        if conta is not None:
+            print(f'Seu saldo é {conta["saldo"]}')
+        else:
+            print('Conta não encontrada')
+
+    elif opcao == 4:
+        cpf = int(input('Digite o cpf do usuário: '))
+        conta = None
+        for c in lista_contas:
+            if c['cpf'] == cpf:
+                conta = c
+                break
+        if conta is not None:
+            quantia = float(input('Digite a quantia que deseja depositar: '))
+            while quantia <= 0:
+                print('Valor inválido')
+                quantia = float(input('Digite a quantia que deseja depositar: '))
+            conta = deposito(quantia, conta)
+            print(f'Depósito de R${quantia:.2f} realizado com sucesso.')
+        else:
+            print('Conta não encontrada')
+    elif opcao == 5:
+        if limite_saque_diario < 3:
+            cpf = int(input('Digite o cpf do usuário: '))
+            conta = None
+            for c in lista_contas:
+                if c['cpf'] == cpf:
+                    conta = c
+                    break
+            if conta is not None:
+                quantia = float(input('Digite a quantia que deseja sacar: '))
+                while quantia <= 0 or quantia > 500:
+                    print('Valor inválido')
+                    quantia = float(input('Digite a quantia que deseja sacar: '))
+                conta = saque(quantia, conta)
+                if conta is not None:
+                    print(f'Saque de R${quantia:.2f} realizado com sucesso.')
+                    extrato.append(f'-R${quantia:.2f}')
+                    limite_saque_diario += 1
+                else:
+                    print('Saldo insuficiente')
+            else:
+                print('Conta não encontrada')
         else:
             print('Limite de saque diário atingido')
-    elif opcao == 4:
-        print(f'extrato:\n{extrato}')
-        with open('extrato.txt', 'w') as arquivo:
-            arquivo.write(str(extrato))
-    elif opcao == 5:
+    elif opcao == 6:
+        cpf = int(input('Digite o cpf do usuário: '))
+        conta = None
+        for c in lista_contas:
+            if c['cpf'] == cpf:
+                conta = c
+                break
+        if conta is not None:
+            verificar_extrato(conta)
+        else:
+            print('Conta não encontrada')
+    elif opcao == 7:
         print('Obrigado por usar nosso sistema')
-        with open('saldo.txt', 'a') as arqSaldo:
-            arqSaldo.write(str(saldo))
         break
     else:
         print('Opção inválida')
