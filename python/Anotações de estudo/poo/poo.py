@@ -23,6 +23,29 @@ o metodo destructor `__del__` é um metodo especial que é chamado quando um obj
 
 # Herança em POO
 
+    em python herança é a capacidade de criar uma classe que herda atributos e métodos de uma classe pai. A classe pai é chamada de superclasse e a classe filha é chamada de subclasse.
 
 
+    beneficios da herança:
+    - Reutilização de código
+        *Fornece uma maneira de reutilizar o código de uma classe existente, evitando a duplicação de código.
+        se a classe filha precisa de funcionalidades adicionais, ela pode adicionar novos atributos e métodos sem alterar a classe pai.
+        se a classe filha herda da class pai, ela pode acessar todos os atributos e métodos da classe pai.
+
+sintaxe da herança:
 """
+
+class A:
+    pass
+
+class B(A):
+    pass
+
+# Neste exemplo, a classe `B` herda da classe `A`. Isso significa que a classe `B` terá todos os atributos e métodos da classe `A`.
+
+# Herança multipla
+
+class C(A, B):
+    pass
+
+# Neste exemplo, a classe `C` herda de duas classes, `A` e `B`. Isso significa que a classe `C` terá todos os atributos e métodos das classes `A` e `B`.

@@ -7,7 +7,7 @@ class Bike:
     
     def buzinar(self):
         print('Bi Bi')
-    
+   
     def correr(self):
         print('Correndo')
     
@@ -31,3 +31,4 @@ print(bike2.cor)
 bike1.buzinar()
 
 print(bike1)
+
