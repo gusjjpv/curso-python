@@ -1,0 +1,3 @@
+"""
+    herança multipla
+"""
