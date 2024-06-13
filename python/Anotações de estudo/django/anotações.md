@@ -103,3 +103,78 @@ def home(request):
 esta pegando um template e colocando na pagina web
 
 na pasta do projeto devemos criar uma pasta template e dentro dela uma pasta com o msm nome do projeto, la criaremos nossos templates, que são arquivos html.
+
+
+dps de criado os modelos, precisamos fazer a migração para o banco de dados, tranformando de fato em tabelas dentro do banco de dados
+
+
+primeiros usamos o comando:
+```python
+python manage.py makemigrations
+```
+ele vai criar migrations para o nossos modelos, esse arquivo pode ser visto na pasta migrations
+
+
+em seguida usamos
+```python
+python manage.py migrate
+```
+vai enfim transformar nas tabelas para o banco de dados 
+
+
+
+### Boas praticas em cofigurações
+
+ocultar o secret_key
+
+
+vamos usar uma biblioteca para configurar o django para o secret_key e outras coisas que queremos ocultar n ficarem visiveis.
+
+```python
+pip install python-decouple
+```
+
+em seguida vamos criar um arquivo nomeado de '.env', neste arquivo vamos colocar essas configurações. é importante que esse arquivo seja adicionado ao gitignore
+
+no exemplo do secret_key, vamos copiar ele para o arquivo .env, retiramos as aspas simples, e no setting vamos importar as configs da biblioteca que instalamos e alteramos a linha do secret_key:
+```python
+from decouple import config, Csv
+
+SECRET_KEY = config("SECRET_KEY")
+```
+
+tbm é interesante colocarmos o DEBUG e ALLOWED_HOSTS no .env, no settings ficara assim:
+```python
+DEBUG = config('DEBUG', default=False, cast=bool)
+
+ALLOWED_HOSTS = config("ALLOWED_HOSTS", cast=Csv())
+
+no .env o ALLOWED_HOSTS ficara assim:
+ALLOWED_HOSTS = *
+```
+
+vamos ocultar tbm configurações do banco de dados. vamos precisar de outra biblioteca para fazer conversoes para que o django consiga entender.
+```python
+pip install dj-database-url
+```
+no arquivo settings vamos importar a seguinte função e dar um apelido a ela, em seguida vamos modificar o DATABASES
+```python
+from dj_database_url import parse as db_url
+
+DATABASES = {
+    'default': config('DATABASE_URL',
+        default=f'sqlite:///{BASE_DIR / "db.sqlite3"}', 
+        cast=db_url),
+}
+```
+
+
+#### formatar todo o projeto para pep 8
+
+para deixar todo o projeto dentro da pep 8 do python existe a biblioteca black, instalando ela e usando o comando 'black .' o projeto irr ser formatado.
+
+```python
+pip install black
+===============
+black .
+```
