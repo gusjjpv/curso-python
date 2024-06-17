@@ -20,3 +20,8 @@
 - Modelo MVC
 - Diminuição do DRY
 - Evita problemas de segurança
+
+
+## Construindo as tabelas
+
+Precisamos criar primeiro uma base
