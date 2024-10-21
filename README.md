@@ -1,5 +1,5 @@
 # Estudando python
-<img width="100" height="100" src="python/python-svgrepo-com.svg">
+<img width="100" height="100" src="python.png">
 
 
 Olá! Este é o meu repositório para os meus estudos da linguagem Python. Estou atualmente estudando Python e utilizando este repositório para armazenar e compartilhar meu progresso e aprendizado.
